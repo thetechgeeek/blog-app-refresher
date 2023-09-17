@@ -1,0 +1,17 @@
+.blog-container {
+    margin-top: 20px;
+}
+.blog-card {
+    padding: 1.5rem;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.blog-card:hover {
+    background-color: rgb(224, 223, 223);
+    font-size: 1.3rem;
+}
