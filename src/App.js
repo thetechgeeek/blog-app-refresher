@@ -1,25 +1,16 @@
-import './App.css';
-import { data } from './data';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './HomePage';
+import BlogPage from './BlogPage';
 
 function App() {
     return (
         <>
-            <nav class='navbar navbar-expand-lg bg-body-tertiary'>
-                <div class='container-fluid justify-content-end p-1 mx-3'>
-                    <ul class='navbar-nav '>
-                        <li class='nav-item'>
-                            <a class='btn btn-primary' href='#'>
-                                Create Post
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div className='container fluid blog-container'>
-                {data.map((item) => (
-                    <div className='blog-card'>{item.title}</div>
-                ))}
-            </div>
+            <Router>
+                <Routes>
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/blog/:title' element={<BlogPage />} />
+                </Routes>
+            </Router>
         </>
     );
 }
