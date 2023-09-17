@@ -2,11 +2,6 @@ import './App.css';
 import { data } from './data';
 import { Link } from 'react-router-dom';
 
-const linkStyle = {
-    color: 'black', // Set the color to black or any color you prefer
-    textDecoration: 'none', // Remove underlines
-};
-
 function HomePage() {
     return (
         <>
@@ -14,16 +9,29 @@ function HomePage() {
                 <div class='container-fluid justify-content-end p-1 mx-3'>
                     <ul class='navbar-nav '>
                         <li class='nav-item'>
-                            <a class='btn btn-primary' href='#'>
+                            <Link
+                                to='/blog/new'
+                                style={{
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                }}
+                                class='btn btn-primary'
+                            >
                                 Create Post
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
             </nav>
             <div className='container fluid blog-container'>
                 {data.map((item) => (
-                    <Link to={`/blog/${item.title}`} style={linkStyle}>
+                    <Link
+                        to={`/blog/${item.id}`}
+                        style={{
+                            color: 'black',
+                            textDecoration: 'none',
+                        }}
+                    >
                         <div className='blog-card'>{item.title}</div>
                     </Link>
                 ))}
