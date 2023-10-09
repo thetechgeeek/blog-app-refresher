@@ -2,29 +2,126 @@ import './App.css';
 // import { data } from './data';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 function HomePage() {
     const data = useSelector((state) => state.blogsState.value);
+    const [isNew, setIsNew] = useState(false);
+    const handleLogin = () => {};
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const username = e.target.username.value;
+        const password = e.target.password.value;
 
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, username, password }),
+            });
+
+            if (response.status === 201) {
+                alert('Registration successful');
+            } else if (response.status === 400) {
+                alert('User already exists');
+            } else {
+                alert('Registration failed');
+            }
+        } catch (error) {
+            alert('Error during registration:', error);
+        }
+    };
     return (
         <>
-            <nav class='navbar navbar-expand-lg bg-body-tertiary'>
-                <div class='container-fluid  p-1 mx-3'>
-                    <a class='navbar-brand' href='/'>
+            <nav className='navbar navbar-expand-lg bg-body-tertiary'>
+                <div className='container-fluid  p-1 mx-3'>
+                    <a className='navbar-brand' href='/'>
                         Aashi's Blog
                     </a>
-                    <ul class='navbar-nav justify-content-end'>
-                        <li class='nav-item'>
+                    <ul className='navbar-nav justify-content-end'>
+                        <li className='nav-item'>
                             <Link
                                 to='/blog/new'
                                 style={{
                                     color: 'white',
                                     textDecoration: 'none',
                                 }}
-                                class='btn btn-primary'
+                                className='btn btn-primary'
                             >
                                 Create Post
                             </Link>
+                        </li>
+                        <li className='nav-item'>
+                            <button className='btn btn-primary' data-toggle='modal' data-target='#loginRegisterModal'>
+                                Login/Register
+                            </button>
+                            <div className='modal fade' id='loginRegisterModal' tabIndex='-1'>
+                                <div className='modal-dialog modal-dialog-centered'>
+                                    <div className='modal-content'>
+                                        <div className='modal-body p-4'>
+                                            {!isNew ? (
+                                                <form onSubmit={handleLogin}>
+                                                    <div>
+                                                        <label htmlFor='username'>Username: </label>
+                                                        <input type='text' id='username' name='username' placeholder='Enter your Username' required></input>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor='name'>Password: </label>
+                                                        <input type='password' id='pw' name='pw' placeholder='Enter your Password' required></input>
+                                                    </div>
+                                                    <button className='btn btn-primary' type='submit'>
+                                                        Login
+                                                    </button>
+
+                                                    <br />
+                                                    <br />
+                                                    <p style={{ textAlign: 'center' }}>New User? Create an account below 👇</p>
+                                                    <div style={{ textAlign: 'center' }}>
+                                                        <button className='btn btn-success' onClick={() => setIsNew(true)}>
+                                                            Register
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            ) : (
+                                                <form onSubmit={handleRegister}>
+                                                    <div>
+                                                        <label htmlFor='name'>Name: </label>
+                                                        <input type='text' id='name' name='name' placeholder='Enter your Name' required></input>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor='name'>Username: </label>
+                                                        <input type='text' id='username' name='username' placeholder='Enter your Username' required></input>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor='name'>Password: </label>
+                                                        <input type='password' id='pw' name='pw' placeholder='Enter your Password' required></input>
+                                                    </div>
+                                                    <button className='btn btn-primary' type='submit'>
+                                                        Register
+                                                    </button>
+
+                                                    <br />
+                                                    <br />
+                                                    <p style={{ textAlign: 'center' }}>Already registered? Login below 👇</p>
+                                                    <div style={{ textAlign: 'center' }}>
+                                                        <button className='btn btn-success' onClick={() => setIsNew(false)}>
+                                                            Login
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            )}
+                                        </div>
+                                        <div className='modal-footer'>
+                                            <button type='button' className='btn btn-danger' data-dismiss='modal'>
+                                                Back
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

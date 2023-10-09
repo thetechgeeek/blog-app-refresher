@@ -1,5 +1,5 @@
 * {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .blog-container {
     margin-top: 20px;
@@ -20,4 +20,8 @@
 }
 .blog-body {
     padding-top: 20px;
+}
+label {
+    width: 120px;
+    margin-bottom: 15px;
 }
