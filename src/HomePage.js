@@ -1,13 +1,19 @@
 import './App.css';
-import { data } from './data';
+// import { data } from './data';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function HomePage() {
+    const data = useSelector((state) => state.blogsState.value);
+
     return (
         <>
             <nav class='navbar navbar-expand-lg bg-body-tertiary'>
-                <div class='container-fluid justify-content-end p-1 mx-3'>
-                    <ul class='navbar-nav '>
+                <div class='container-fluid  p-1 mx-3'>
+                    <a class='navbar-brand' href='/'>
+                        Aashi's Blog
+                    </a>
+                    <ul class='navbar-nav justify-content-end'>
                         <li class='nav-item'>
                             <Link
                                 to='/blog/new'
@@ -23,7 +29,7 @@ function HomePage() {
                     </ul>
                 </div>
             </nav>
-            <div className='container fluid blog-container'>
+            <div className='container blog-container'>
                 {data.map((item) => (
                     <Link
                         to={`/blog/${item.id}`}
