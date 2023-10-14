@@ -80,7 +80,7 @@ function HomePage() {
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <button className='btn btn-primary' data-toggle='modal' data-target='#loginRegisterModal'>
+                            <button className='btn btn-primary mx-2' data-toggle='modal' data-target='#loginRegisterModal'>
                                 Login/Register
                             </button>
                             <div className='modal fade' id='loginRegisterModal' tabIndex='-1'>
