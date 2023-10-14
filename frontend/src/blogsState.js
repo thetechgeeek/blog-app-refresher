@@ -24,7 +24,7 @@ export const blogsState = createSlice({
         },
         edit: (state, action) => {
             state.value = state.value.map((obj) => {
-                if (obj.id == action.payload.id) {
+                if (obj.id === action.payload.id) {
                     return {
                         ...obj,
                         title: action.payload.title,
@@ -35,12 +35,12 @@ export const blogsState = createSlice({
             });
         },
         remove: (state, action) => {
-            state.value = state.value.filter((obj) => obj.id != action.payload);
+            state.value = state.value.filter((obj) => obj.id !== action.payload);
         },
         like: (state, action) => {
             console.log(action.payload);
             state.value = state.value.map((obj) => {
-                if (obj.id == action.payload) {
+                if (obj.id === action.payload) {
                     return {
                         ...obj,
                         isLiked: obj.isLiked === true ? false : true,

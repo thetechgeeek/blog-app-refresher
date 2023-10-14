@@ -12,7 +12,7 @@ const BlogPage = () => {
     const dispatch = useDispatch();
 
     const handleDelete = () => {
-        if (window.confirm('Are you sure you want to delete this?') == true) {
+        if (window.confirm('Are you sure you want to delete this?') === true) {
             dispatch(remove(id));
             navigate('/', { replace: true });
         } else {
