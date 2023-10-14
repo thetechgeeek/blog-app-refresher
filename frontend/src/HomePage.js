@@ -7,15 +7,40 @@ import { useState } from 'react';
 function HomePage() {
     const data = useSelector((state) => state.blogsState.value);
     const [isNew, setIsNew] = useState(false);
-    const handleLogin = () => {};
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const username = e.target.username.value;
+        const password = e.target.password.value;
+
+        try {
+            const response = await fetch('http://localhost:5001/api/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.status === 201) {
+                alert('Login successful');
+            } else if (response.status === 400) {
+                alert('Authentication failed');
+            } else if (response.status === 404) {
+                alert('User not found');
+            }
+        } catch (error) {
+            alert('Error during registration:', error);
+        }
+    };
     const handleRegister = async (e) => {
         e.preventDefault();
+        console.log(e);
         const name = e.target.name.value;
         const username = e.target.username.value;
         const password = e.target.password.value;
 
         try {
-            const response = await fetch('/register', {
+            const response = await fetch('http://localhost:5001/api/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,6 +86,9 @@ function HomePage() {
                             <div className='modal fade' id='loginRegisterModal' tabIndex='-1'>
                                 <div className='modal-dialog modal-dialog-centered'>
                                     <div className='modal-content'>
+                                        <div className='modal-header'>
+                                            <h5 class='modal-title m-auto'>{isNew ? 'Register' : 'Login'}</h5>
+                                        </div>
                                         <div className='modal-body p-4'>
                                             {!isNew ? (
                                                 <form onSubmit={handleLogin}>
@@ -70,7 +98,7 @@ function HomePage() {
                                                     </div>
                                                     <div>
                                                         <label htmlFor='name'>Password: </label>
-                                                        <input type='password' id='pw' name='pw' placeholder='Enter your Password' required></input>
+                                                        <input type='password' id='password' name='password' placeholder='Enter your Password' required></input>
                                                     </div>
                                                     <button className='btn btn-primary' type='submit'>
                                                         Login
@@ -97,7 +125,7 @@ function HomePage() {
                                                     </div>
                                                     <div>
                                                         <label htmlFor='name'>Password: </label>
-                                                        <input type='password' id='pw' name='pw' placeholder='Enter your Password' required></input>
+                                                        <input type='password' id='password' name='password' placeholder='Enter your Password' required></input>
                                                     </div>
                                                     <button className='btn btn-primary' type='submit'>
                                                         Register
